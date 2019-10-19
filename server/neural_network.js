@@ -7,16 +7,15 @@ const fs = require('fs')
 // up [1,0,0,0]
 // down [0]
 
-module.exports = class Model {
-
-    up = [1,0,0,0];
-    down = [0,1,0,0];
-    right = [0,0,1,0];
-    left = [0,0,0,1];
-
+class Model {
     constructor(){
         this.design = [3, 15, 15,10,4,8, 4];
-        this.brain = new NeuralNetwork(design);
+        this.brain = new NeuralNetwork(this.design);
+        
+        this.up = [1,0,0,0];
+        this.down = [0,1,0,0];
+        this.right = [0,0,1,0];
+        this.left = [0,0,0,1];
     }
 
     Init(){
@@ -53,6 +52,10 @@ module.exports = class Model {
         })
     }
 } 
+
+
+
+let model = new Model();
 
 
 
