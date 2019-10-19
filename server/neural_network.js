@@ -18,12 +18,14 @@ class Model {
         this.left = [0,0,0,1];
     }
 
-    Init(){
+    Train(){
         trainNetworkLogs("./logs/tilt_up_log.json",this.up,this.brain);
         trainNetworkLogs("./logs/tilt_down_log.json",this.down,this.brain);
         trainNetworkLogs("./logs/tilt_right_log.json",this.right,this.brain);
         trainNetworkLogs("./logs/tilt_left_log.json",this.left,this.brain);
     }
+
+    
 
     trainNetworkLogs(path,result,brain){
         this.importLogs(path).then((data)=>{
