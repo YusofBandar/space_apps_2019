@@ -52,9 +52,9 @@ function appController($scope, $window) {
     var gamma = event.gamma;
 
     $scope.$apply(function(){
-      $scope.motion.alpha = alpha;
-      $scope.motion.beta = beta;
-      $scope.motion.gamma = gamma;
+      $scope.motion.alpha = alpha ? alpha.toFixed(3) : 0;
+      $scope.motion.beta = beta ? beta.toFixed(3) : 0;
+      $scope.motion.gamma = gamma ? gamma.toFixed(3) : 0;
     })
   }
 
