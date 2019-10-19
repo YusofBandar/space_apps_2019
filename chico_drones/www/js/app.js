@@ -39,6 +39,9 @@ function appController($scope, $window) {
     $scope.title = "Motion Testing"
   }
 
+
+  $scope.url = "https://";
+
   $scope.alphaLock = 0;
   $scope.newAlpha = 0;
   $scope.motion = {
@@ -49,6 +52,7 @@ function appController($scope, $window) {
 
   $scope.lock = function () {
     $scope.alphaLock = ($scope.motion.alpha);
+    console.log($scope.url);
   }
 
   function handleOrientation(event) {
@@ -64,19 +68,26 @@ function appController($scope, $window) {
       $scope.newAlpha = ($scope.motion.alpha - $scope.alphaLock)
     })
 
-    log(alpha,beta,gamma);
+    log($scope.motion.alpha, $scope.motion.beta, $scope.motion.gamma);
   }
 
-  function log(alpha,beta,gamma) {
-    var url = "sample-url.php";
-    var params = `alpha=${alpha}&beta=${beta}&gamma${gamma}`;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
+  var lastMove = 0;
+  function log(alpha, beta, gamma) {
 
-    //Send the proper header information along with the request
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    if (Date.now() - lastMove > 2000) {
+      var url = `${$scope.url}?alpha=${alpha}&beta=${beta}&gamma=${gamma}`;
+      //var params = `alpha=${alpha}&beta=${beta}&gamma${gamma}`;
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url, true);
 
-    xhr.send(params);
+      //Send the proper header information along with the request
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+      xhr.send();
+      lastMove = Date.now();
+    }
+
+
   }
 
   $window.addEventListener('deviceorientation', handleOrientation);
