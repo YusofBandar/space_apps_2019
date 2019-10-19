@@ -3,39 +3,38 @@
 const NeuralNetwork = require('./lib/snn');
 const fs = require('fs')
 
-let design = [2, 4, 3, 2];
+let design = [3, 4, 3, 4];
 let brain = new NeuralNetwork(design);
 
 
-// Say we are trying to build a network that will predict the largest of two numbers. ( a rather simple example )  
-for (let i = 0; i < 10000; i++) {
-    let num1 = Math.random();
-    let num2 = Math.random();
-    // although random() generates numbers between 0 - 1, the network will be capable to compute for any numbers
-    brain.train([num1, num2], (num1 > num2 ? [1, 0] : [0, 1]));
+TrainNetworkLogs(brain);
 
-    //i.e brain.train(Inputs, Targets);
-}
+//largest = brain.predict([10, 20]);
+//console.log(`Probability Score for Largest: ${largest}`)
 
-
-largest = brain.predict([10, 20]);
-console.log(`Probability Score for Largest: ${largest}`)
-
-
-
-importLogs("./log.json",(err,data) =>{
-    let logs = [];
-    if (err){
-        console.log(err);
-    } else {
-        let json = JSON.parse(data);
-        json.forEach(element => {
-            logs.push([element.alpha,element.beta,element.gamma]);
+function TrainNetworkLogs(brain) {
+    importLogs("./tilt_left_log.json").then((data)=>{
+        data.forEach(log => {
+            brain.train(log,[1,0,0,0]);
         });
-        console.log(logs);
-    }
-})
-
-function importLogs(path,callback){
-    fs.readFile(path, "utf8",callback);
+        console.log(brain.predict([60,55,21]));
+    }).catch((err) =>{
+        console.log(err);
+    })
+}
+function importLogs(path) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path,(err,data)=>{
+            let logs = [];
+            if (err) {
+                reject(err);
+            } else {
+                let json = JSON.parse(data);
+                json.forEach(element => {
+                    logs.push([element.alpha, element.beta, element.gamma]);
+                });
+                return resolve(logs);
+            }
+        })
+    })
 }
