@@ -47,7 +47,7 @@ function appController($scope, $window) {
     gamma: 0
   }
 
-  $scope.lock = function(){
+  $scope.lock = function () {
     $scope.alphaLock = ($scope.motion.alpha);
   }
 
@@ -57,12 +57,26 @@ function appController($scope, $window) {
     var beta = event.beta;
     var gamma = event.gamma;
 
-    $scope.$apply(function(){
+    $scope.$apply(function () {
       $scope.motion.alpha = (alpha ? alpha.toFixed(3) : 0);
       $scope.motion.beta = beta ? beta.toFixed(3) : 0;
       $scope.motion.gamma = gamma ? gamma.toFixed(3) : 0;
       $scope.newAlpha = ($scope.motion.alpha - $scope.alphaLock)
     })
+
+    log(alpha,beta,gamma);
+  }
+
+  function log(alpha,beta,gamma) {
+    var url = "sample-url.php";
+    var params = `alpha=${alpha}&beta=${beta}&gamma${gamma}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+
+    //Send the proper header information along with the request
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.send(params);
   }
 
   $window.addEventListener('deviceorientation', handleOrientation);
