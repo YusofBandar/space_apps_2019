@@ -28,7 +28,7 @@ class Model {
         return Promise.all(promises)
     }
 
-    Predit(data) {
+    Predict(data) {
         return this.brain.predict(data);
     }
 
@@ -71,7 +71,7 @@ class Model {
 
 let model = new Model();
 model.Train().then((data) => {
-    console.log("done");
+    console.log(model.Predict([100,200,-50]));
 });
 
 
