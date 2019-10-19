@@ -19,10 +19,14 @@ class Model {
     }
 
     Train(){
-        trainNetworkLogs("./logs/tilt_up_log.json",this.up,this.brain);
-        trainNetworkLogs("./logs/tilt_down_log.json",this.down,this.brain);
-        trainNetworkLogs("./logs/tilt_right_log.json",this.right,this.brain);
-        trainNetworkLogs("./logs/tilt_left_log.json",this.left,this.brain);
+        this.trainNetworkLogs("./logs/tilt_up_log.json",this.up,this.brain);
+        this.trainNetworkLogs("./logs/tilt_down_log.json",this.down,this.brain);
+        this.trainNetworkLogs("./logs/tilt_right_log.json",this.right,this.brain);
+        this.trainNetworkLogs("./logs/tilt_left_log.json",this.left,this.brain);
+    }
+
+    Predit(data){
+        return this.brain.predict(data);
     }
 
     
@@ -58,6 +62,7 @@ class Model {
 
 
 let model = new Model();
+model.Train();
 
 
 
