@@ -39,10 +39,16 @@ function appController($scope, $window) {
     $scope.title = "Motion Testing"
   }
 
+  $scope.alphaLock = 0;
+  $scope.newAlpha = 0;
   $scope.motion = {
     alpha: 0,
     beta: 0,
     gamma: 0
+  }
+
+  $scope.lock = function(){
+    $scope.alphaLock = ($scope.motion.alpha);
   }
 
   function handleOrientation(event) {
@@ -52,9 +58,10 @@ function appController($scope, $window) {
     var gamma = event.gamma;
 
     $scope.$apply(function(){
-      $scope.motion.alpha = alpha ? alpha.toFixed(3) : 0;
+      $scope.motion.alpha = (alpha ? alpha.toFixed(3) : 0);
       $scope.motion.beta = beta ? beta.toFixed(3) : 0;
       $scope.motion.gamma = gamma ? gamma.toFixed(3) : 0;
+      $scope.newAlpha = ($scope.motion.alpha - $scope.alphaLock)
     })
   }
 
