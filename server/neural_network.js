@@ -1,6 +1,7 @@
 
 
 const NeuralNetwork = require('./lib/snn');
+const fs = require('fs')
 
 let design = [2, 4, 3, 2];
 let brain = new NeuralNetwork(design);
@@ -22,6 +23,19 @@ console.log(`Probability Score for Largest: ${largest}`)
 
 
 
-function importLogs(path){
-    
+importLogs("./log.json",(err,data) =>{
+    let logs = [];
+    if (err){
+        console.log(err);
+    } else {
+        let json = JSON.parse(data);
+        json.forEach(element => {
+            logs.push([element.alpha,element.beta,element.gamma]);
+        });
+        console.log(logs);
+    }
+})
+
+function importLogs(path,callback){
+    fs.readFile(path, "utf8",callback);
 }
