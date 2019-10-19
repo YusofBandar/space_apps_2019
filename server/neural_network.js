@@ -3,11 +3,7 @@
 const NeuralNetwork = require('./lib/snn');
 const fs = require('fs')
 
-
-// up [1,0,0,0]
-// down [0]
-
-class Model {
+module.exports = class Model {
     constructor() {
         this.design = [3, 15, 15, 10, 4, 8, 4];
         this.brain = new NeuralNetwork(this.design);
@@ -66,13 +62,6 @@ class Model {
         })
     }
 }
-
-
-
-let model = new Model();
-model.Train().then((data) => {
-    console.log(model.Predict([100,200,-50]));
-});
 
 
 
