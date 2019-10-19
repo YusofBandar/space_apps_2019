@@ -39,18 +39,28 @@ function appController($scope, $window) {
     $scope.title = "Motion Testing"
   }
 
+  $scope.motion = {
+    alpha: 0,
+    beta: 0,
+    gamma: 0
+  }
+
   function handleOrientation(event) {
     var absolute = event.absolute;
-    var alpha    = event.alpha;
-    var beta     = event.beta;
-    var gamma    = event.gamma;
-  
-    // Do stuff with the new orientation data
+    var alpha = event.alpha;
+    var beta = event.beta;
+    var gamma = event.gamma;
+
+    $scope.$apply(function(){
+      $scope.motion.alpha = alpha;
+      $scope.motion.beta = beta;
+      $scope.motion.gamma = gamma;
+    })
   }
 
   $window.addEventListener('deviceorientation', handleOrientation);
 
- 
+
 
   $scope.init();
 
