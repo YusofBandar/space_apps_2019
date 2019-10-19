@@ -1,0 +1,11 @@
+#lock{
+    background-color:#2a2175;
+	border-radius:13px;
+	border:4px solid #174e91;
+	display:inline-block;
+	cursor:pointer;
+    color:#ffffff;
+    width: 50%;
+    height: 200px;
+    margin: 25%;
+}
