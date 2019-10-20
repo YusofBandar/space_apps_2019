@@ -1,20 +1,39 @@
 const express = require('express')
+const { createLogger, format, transports } = require('winston');
+const Model = require("./neural_network");
 const fs = require('fs')
 
 const app = express()
 
 const port = 3000
-const logName = "./logs/tilt_right_log.json"
-
-const Model = require("./neural_network");
+const logName = "./logs/tilt_right_log.log"
 
 
-let model = new Model();
+
+/*let model = new Model();
 model.Train().then((data) => {
     console.log("done");
-});
+});*/
 
 
+const deleteLevel = format((info, opts) => {
+    delete info.level;
+    return info;
+  });
+
+
+const logger = createLogger({
+    format: format.combine(
+        deleteLevel(),
+        format.json()
+      ),
+    transports: [
+      new transports.Console(),
+      new transports.File({ filename: logName })
+    ]
+  });
+  
+   
 app.post('/log', (req, res) => {
 
     let alpha = Math.round(req.query.alpha);
@@ -22,26 +41,7 @@ app.post('/log', (req, res) => {
     let gamma = Math.round(req.query.gamma);
 
 
-    console.log(`{alpha":${alpha},beta:${beta},gamma:${gamma}}`);
-
-    fs.readFile(logName, "utf8",(err, data) =>{
-         if (err){
-             console.log(err);
-         } else {
-         let jsonData = JSON.parse(data);
-         jsonData.push({
-             alpha,
-             beta,
-              gamma
-         })
-     
-         fs.writeFile(logName, JSON.stringify(jsonData), "utf8",()=> console.log("written"));
-     }});
-
-   
-
-
-
+    logger.info({alpha,beta,gamma});
     res.sendStatus(200)
 });
 
@@ -69,6 +69,5 @@ app.post('/predict',(req,res) => {
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
 
 
