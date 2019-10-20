@@ -16,8 +16,9 @@ module.exports = class Model {
 
     Train() {
         let promises = [];
-        promises.push(this.trainNetworkLogs("./logs/tilt_up_log.json", this.up, this.brain));
+        
         promises.push(this.trainNetworkLogs("./logs/tilt_down_log.json", this.down, this.brain));
+        promises.push(this.trainNetworkLogs("./logs/tilt_up_log.json", this.up, this.brain));
         promises.push(this.trainNetworkLogs("./logs/tilt_right_log.json", this.right, this.brain));
         promises.push(this.trainNetworkLogs("./logs/tilt_left_log.json", this.left, this.brain));
 
