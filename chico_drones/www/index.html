@@ -44,13 +44,12 @@
         <h1 ng-bind="title">{title}</h1>
 
         <input ng-model="url"></input>
+        <input ng-model="time"></input>
 
         <h1 ng-bind="motion.alpha"></h1>
         <h1 ng-bind="motion.beta"></h1>
         <h1 ng-bind="motion.gamma"></h1>
 
-        <h3 ng-bind="newAlpha"></h3>
-        <h4 ng-bind="alphaLock"></h4>
         <button id="lock" ng-click="lock()"></button>
       </div>
 

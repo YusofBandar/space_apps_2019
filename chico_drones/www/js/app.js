@@ -41,9 +41,8 @@ function appController($scope, $window) {
 
 
   $scope.url = "https://";
+  $scope.time = 1000;
 
-  $scope.alphaLock = 0;
-  $scope.newAlpha = 0;
   $scope.motion = {
     alpha: 0,
     beta: 0,
@@ -66,7 +65,6 @@ function appController($scope, $window) {
       $scope.motion.alpha = (alpha ? alpha.toFixed(3) : 0);
       $scope.motion.beta = beta ? beta.toFixed(3) : 0;
       $scope.motion.gamma = gamma ? gamma.toFixed(3) : 0;
-      $scope.newAlpha = ($scope.motion.alpha - $scope.alphaLock)
     })
 
     log($scope.motion.alpha, $scope.motion.beta, $scope.motion.gamma);
@@ -76,7 +74,7 @@ function appController($scope, $window) {
   var lastMove = 0;
   function log(alpha, beta, gamma) {
 
-    if (start && (Date.now() - lastMove > 2000)) {
+    if (start && (Date.now() - lastMove > $scope.time)) {
       var url = `${$scope.url}?alpha=${alpha}&beta=${beta}&gamma=${gamma}`;
       //var params = `alpha=${alpha}&beta=${beta}&gamma${gamma}`;
       var xhr = new XMLHttpRequest();
