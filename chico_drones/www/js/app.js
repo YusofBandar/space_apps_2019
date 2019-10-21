@@ -49,10 +49,10 @@ function appController($scope, $window) {
     gamma: 0
   }
 
-  $scope.lock = function () {
-    $scope.alphaLock = ($scope.motion.alpha);
+  $scope.start = false;
+  $scope.log = function () {
     console.log($scope.url);
-    start = !start;
+    $scope.start = !$scope.start;
   }
 
   function handleOrientation(event) {
@@ -70,11 +70,11 @@ function appController($scope, $window) {
     log($scope.motion.alpha, $scope.motion.beta, $scope.motion.gamma);
   }
 
-  var start = false;
+  
   var lastMove = 0;
   function log(alpha, beta, gamma) {
 
-    if (start && (Date.now() - lastMove > $scope.time)) {
+    if ($scope.start && (Date.now() - lastMove > $scope.time)) {
       var url = `${$scope.url}?alpha=${alpha}&beta=${beta}&gamma=${gamma}`;
       //var params = `alpha=${alpha}&beta=${beta}&gamma${gamma}`;
       var xhr = new XMLHttpRequest();
